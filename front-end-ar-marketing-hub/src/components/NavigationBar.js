@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import logo from '../Images/AR-logo.png';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import './NavigationBar.css';
-import { Nav, NavDropdown } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "../actions/userAction";
 import { useNavigate } from 'react-router-dom';
 import { MdHome, MdInfo, MdShoppingCart, MdEventNote } from "react-icons/md";
 
 function NavigationBar() {
-
   const dispatch = useDispatch();
-  let navigate = useNavigate(); 
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -21,83 +21,56 @@ function NavigationBar() {
     navigate('/');
   };
 
-  useEffect(() => { }, [userInfo]);
-
-  console.log(userInfo);
+  const isActive = (path) => location.pathname === path;
 
   return (
-    <div>
-       <div>
-            {/* <MinimizableWebChat/> */}
-          {/* <Chatbot
-        config={config}
-        messageParser={MessageParser}
-        actionProvider={ActionProvider}
-      /> */}
-      <nav className="navbar navbar-default">
+    <Navbar expand="lg" className="main-navbar" variant="dark">
+      <Container fluid className="px-4">
+        <Navbar.Brand as={Link} to="/">
+          <img src={logo} className="nav-logo" alt="AR Marketing Hub" />
+        </Navbar.Brand>
 
-        <div className="container-fluid">
+        <Navbar.Toggle aria-controls="main-nav-collapse" className="nav-toggler" />
 
-          <div className="navbar-header">
-            <div className="navbar-brand"><Nav.Link as={Link} to={"/"}><img src={logo} className="App-icon" alt="logo" /></Nav.Link></div>
-          </div>
+        <Navbar.Collapse id="main-nav-collapse">
+          <Nav className="me-auto align-items-lg-center gap-1 mt-2 mt-lg-0">
+            <Nav.Link as={Link} to="/" className={`nav-item-link ${isActive('/') ? 'active' : ''}`}>
+              <MdHome className="nav-icon" /> Home
+            </Nav.Link>
+            <Nav.Link as={Link} to="/about" className={`nav-item-link ${isActive('/about') ? 'active' : ''}`}>
+              <MdInfo className="nav-icon" /> About
+            </Nav.Link>
+            <Nav.Link as={Link} to="/products" className={`nav-item-link ${isActive('/products') ? 'active' : ''}`}>
+              <MdShoppingCart className="nav-icon" /> Products
+            </Nav.Link>
+            <Nav.Link as={Link} to="/events" className={`nav-item-link ${isActive('/events') ? 'active' : ''}`}>
+              <MdEventNote className="nav-icon" /> Events
+            </Nav.Link>
+          </Nav>
 
-          <ul className="nav navbar-nav">
-            <li> <Nav.Link as={Link} to={"/"}><MdHome style={{ fontSize: '25px', paddingRight: "2px"}} />Home</Nav.Link></li>
-            <li> <Nav.Link as={Link} to={"/about"}><MdInfo style={{ fontSize: '25px', paddingRight: "2px"}} />About</Nav.Link></li>
-            <li> <Nav.Link as={Link} to={"/products"}><MdShoppingCart style={{ fontSize: '25px', paddingRight: "2px"}} />Products</Nav.Link></li>
-            <li> <Nav.Link as={Link} to={"/events"}><MdEventNote style={{ fontSize: '25px', paddingRight: "2px"}} />Events</Nav.Link></li>
-            <li><Nav.Link as={Link} to={"/register"}>Sign Up</Nav.Link></li>
-            
-            {/* <li><a href="#">Products</a></li>
-                        <li><a href='#'>Events</a></li> */}
-            {/* <li><a> <Nav.Link as={Link} to={"/signin"}>Sign In</Nav.Link></a></li>
-                        <li><a> <Nav.Link as={Link} to={"/profile"}>Profile</Nav.Link></a></li>  */}
-                        
-            <Nav>
-              {userInfo ? (
-                <>
-                  {/* <Nav.Link href="/profile">My Profile</Nav.Link> */}
-                  
-                  <NavDropdown
-                    title={`${userInfo.name}`}
-                    id="collasible-nav-dropdown"
-                  >
-                    <NavDropdown.Item href="/profile">
-                      {/* <img
-                      alt=""
-                      src={`${userInfo.pic}`}
-                      width="25"
-                      height="25"
-                      style={{ marginRight: 10 }}
-                    /> */}
-                      My Profile
-                    </NavDropdown.Item>
-
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item onClick={logoutHandler}>
-                      Logout
-                    </NavDropdown.Item>
-                  </NavDropdown>
-                </>
-              ) : (
-                <>
-                
-                <Nav.Link href="/signin">Log In</Nav.Link>
-                </>
-              )}
-            </Nav>
-            
-            {/* <Nav.Link as={Link} to={"/login"}>Sign In</Nav.Link> */}
-            {/* <Link to="/">Home</Link>
-                        <Link to="/about">About</Link>
-                        <Link to="/profile">Profile</Link>  */}
-          </ul>
-        </div>
-      </nav>
-      </div>
-    </div>
-  )
+          <Nav className="align-items-lg-center gap-2 mb-2 mb-lg-0">
+            {userInfo ? (
+              <NavDropdown
+                title={userInfo.name}
+                id="user-nav-dropdown"
+                align="end"
+                className="nav-user-dropdown"
+              >
+                <NavDropdown.Item as={Link} to="/profile">My Profile</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
+              </NavDropdown>
+            ) : (
+              <>
+                <Nav.Link as={Link} to="/register" className="nav-item-link">Sign Up</Nav.Link>
+                <Nav.Link as={Link} to="/signin" className="nav-signin-btn">Log In</Nav.Link>
+              </>
+            )}
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+  );
 }
 
 export default NavigationBar;

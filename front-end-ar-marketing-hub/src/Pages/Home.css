@@ -1,11 +1,218 @@
-.mark{
-    width: 1350px;
-    height: 500px;
-    
+/* ===== Home Page ===== */
+
+.home-wrapper {
+    width: 100%;
+    font-family: 'Futura-medium', sans-serif;
 }
 
+/* Hero */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+}
 
-.home-text{
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.55);
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    width: 90%;
+}
+
+.hero-title {
+    font-family: 'Futura-bold', sans-serif;
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+}
+
+.hero-cta {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* CTA Buttons */
+.cta-btn {
+    padding: 12px 28px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-family: 'Futura-bold', sans-serif;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: 3px 3px 8px rgba(0,0,0,0.25);
+}
+
+.cta-btn:active {
+    transform: scale(0.97);
+}
+
+.cta-primary {
+    background-color: #5BD7FE;
+    color: #003366;
+}
+
+.cta-primary:hover {
+    background-color: #3ec5f0;
+    color: #003366;
+}
+
+.cta-secondary {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+.cta-secondary:hover {
+    background-color: white;
+    color: #003366;
+}
+
+/* Shared section */
+.section {
+    padding: 4rem 2rem;
     text-align: center;
 }
 
+.section-title {
+    font-family: 'Futura-bold', sans-serif;
+    font-size: 2rem;
+    color: #003366;
+    margin-bottom: 2.5rem;
+}
+
+/* Benefits */
+.benefits-section {
+    background-color: #f5f9ff;
+}
+
+.benefits-grid {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.benefit-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+    width: 300px;
+    box-shadow: 0 4px 16px rgba(0,51,102,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.benefit-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,51,102,0.15);
+}
+
+.benefit-icon {
+    font-size: 3rem;
+    color: #5BD7FE;
+    margin-bottom: 1rem;
+}
+
+.benefit-card h3 {
+    font-family: 'Futura-bold', sans-serif;
+    color: #003366;
+    margin-bottom: 0.75rem;
+}
+
+.benefit-card p {
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* Steps */
+.steps-section {
+    background-color: white;
+}
+
+.steps-grid {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.step-card {
+    background: #003366;
+    color: white;
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+    width: 300px;
+    position: relative;
+}
+
+.step-number {
+    width: 52px;
+    height: 52px;
+    background-color: #5BD7FE;
+    color: #003366;
+    border-radius: 50%;
+    font-family: 'Futura-bold', sans-serif;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+}
+
+.step-card h3 {
+    font-family: 'Futura-bold', sans-serif;
+    margin-bottom: 0.75rem;
+}
+
+.step-card p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #d0e8ff;
+}
+
+/* Bottom CTA */
+.bottom-cta-section {
+    background: linear-gradient(135deg, #003366 0%, #005599 100%);
+    color: white;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.bottom-cta-section h2 {
+    font-family: 'Futura-bold', sans-serif;
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+}
+
+.bottom-cta-section p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    color: #d0e8ff;
+}

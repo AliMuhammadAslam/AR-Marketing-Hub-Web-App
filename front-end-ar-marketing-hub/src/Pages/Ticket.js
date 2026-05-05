@@ -97,14 +97,10 @@ const handleValue = (a)=>{
     //console.log(params);
     const [id, setID] = useState(Event_ID);
     //console.log(params);
-    console.log(Event_ID);
-
     var filtered = [];
     filtered = Array.isArray(events) ? events.find((event) => {
         return event.Event_ID === id;
       }) : undefined;
-      const myArray = filtered ? Object.values(filtered) : [];
-      console.log(myArray);
 
     let postTicket = async() => {
         try {
@@ -119,12 +115,11 @@ const handleValue = (a)=>{
                 "Total": total
                 
               }
-            await axios.post('http://localhost:3500/auth/add_ticket',body)
+            await axios.post('/auth/add_ticket', body)
             navigate('/events');
             
         } catch (error) {
-            
-            console.log(error);
+            // ticket submission failed silently
         }
         
         

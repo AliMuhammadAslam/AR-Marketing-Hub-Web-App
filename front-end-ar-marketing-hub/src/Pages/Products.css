@@ -1,117 +1,78 @@
-.super-product-cont{
-    display: flex;
-    /* min-height: 100vh;  */
-    align-items: center; 
-    justify-content: center; 
-    display: grid;
-  
+/* ===== Products Page ===== */
+
+.super-product-cont {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
 }
 
-.product-container {
-align-items: center; 
-justify-content: center;
-border-style: groove;
-font-family: Futura-bold;
-margin-bottom: 4rem;
-width: 51rem;
+/* Shared page header (used by Products and Events) */
+.header {
+  font-family: 'Futura-bold', sans-serif;
+  font-size: 2rem;
+  color: #003366;
+  margin-bottom: 1.5rem;
+  text-align: center;
 }
 
-.header{
-margin-left: 45%;
-align-items: center;
-padding: 10px;
-font-family: Futura-bold;
-font-size: 50px;
-margin-top: -1rem;
-margin-bottom: 1rem;
-/* width: 100%; */
-}
-
-.not-footer{
-margin-left: 32%;
-align-items: center;
-padding: 10px;
-font-family: Futura-bold;
-font-size: 50px;
-margin-top: 3rem;
-margin-bottom: 0.5rem;
-position: relative;
-/* width: 100%; */
-}
-
+/* Product card image override */
 .product-pic {
-    height: 50rem;
-    width: 50rem;
-    /* object-fit: none; */
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
 }
 
-.click-here{
-border: none;
-background-color: aqua;
-padding: 10px;
-border-radius: 20px; 
-cursor: pointer;
-color: black;
-margin-bottom: 3rem;
-/* margin-top: 2rem; */
-margin-left: 45%; 
-/* margin-right: 6   rem;  */
-box-shadow: 5px 5px 5px gray;
-font-size: 20px;
-position: relative;
-width: 10%;
-font-family: Futura-medium;
+/* Bottom CTA */
+.not-footer {
+  font-family: 'Futura-bold', sans-serif;
+  font-size: 1.5rem;
+  color: #003366;
+  text-align: center;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
 }
 
-.click-here:hover{
-background-color: transparent;
-color:#003366;
-border-color: #003366;
-border-style: solid;
+.click-here {
+  display: block;
+  margin: 0 auto 3rem;
+  border: none;
+  background-color: #5BD7FE;
+  color: #003366;
+  font-family: 'Futura-bold', sans-serif;
+  font-size: 16px;
+  padding: 12px 32px;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0, 51, 102, 0.2);
+  transition: background-color 0.15s ease;
 }
 
-.click-here:active{
-background-color: aqua;
-color: black ;
-border: none;
-transform: scale(0.98);
-/* Scaling button to 0.98 to its original size */
-box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
-/* Lowering the shadow */
+.click-here:hover {
+  background-color: #3ec5f0;
 }
 
-.take-to-prod{
-    border: none;
-    background-color: aqua;
-    padding: 4px;
-    border-radius: 20px; 
-    cursor: pointer;
-    color: black;
-    margin-bottom: 2rem;
-    /* margin-top: 2rem; */
-    margin-left: 70%;  
-    /* margin-right: 6rem;   */
-    box-shadow: 5px 5px 5px gray;
-    font-size: 20px;
-    position: relative;
-    width: 20%;
-    font-family: Futura-medium;
-    }
-    
-.take-to-prod:hover{
-    background-color: transparent;
-    color:#003366;
-    border-color: #003366;
-    border-style: solid;
+.click-here:active {
+  transform: scale(0.97);
 }
-    
-.take-to-prod:active{
-    background-color: aqua;
-    color: black ;
-    border: none;
-    transform: scale(0.98);
-    /* Scaling button to 0.98 to its original size */
-    box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
-    /* Lowering the shadow */
+
+/* "Go to Product" button inside ProductCard */
+.take-to-prod {
+  border: 2px solid #003366;
+  background-color: #003366;
+  color: white;
+  font-family: 'Futura-bold', sans-serif;
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
 }
-    
+
+.take-to-prod:hover {
+  background-color: transparent;
+  color: #003366;
+}
+
+.take-to-prod:active {
+  transform: scale(0.97);
+}

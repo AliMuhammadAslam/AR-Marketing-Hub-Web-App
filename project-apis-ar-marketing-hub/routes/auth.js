@@ -56,7 +56,7 @@ router.post('/refresh-token', async(req, res, next) => {
         const accessToken = await signAccessToken(userId)
         const refToken = await signRefreshToken(userId)
 
-        res.send({acessToken: accessToken, refreshToken: refToken})
+        res.send({accessToken: accessToken, refreshToken: refToken})
     } catch (error) {
         next(error)
     }

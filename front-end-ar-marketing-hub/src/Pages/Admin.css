@@ -1,78 +1,74 @@
-.event{
-    border: none;
-    background-color: aqua;
-    /* padding: 4px; */
-    border-radius: 5px; 
-    cursor: pointer;
-    color: black;
-    /* margin-bottom: 1rem; */
-     margin-top: 3rem; 
-    margin-left: 37%;  
-    /* margin-right: 6rem;   */
-    /* box-shadow: 5px 5px 5px gray; */
-    font-size: 20px;
-    position: relative;
-    width: 25%;
-    font-family: Futura-medium;
-    padding: 20px;
-    animation-duration: 3s;
-  animation-name: slide-in;
+/* ===== Admin Dashboard ===== */
+
+.admin-page {
+  min-height: 100vh;
+  background-color: #f5f9ff;
 }
 
-.prod{
-    border: none;
-    background-color: aqua;
-    /* padding: 4px; */
-    border-radius: 8px; 
-    cursor: pointer;
-    color: black;
-    /* margin-bottom: 2rem; */
-     margin-top: 2rem; 
-    margin-left: 37%;  
-    /* margin-right: 6rem;   */
-    /* box-shadow: 5px 5px 5px gray; */
-    font-size: 20px;
-    position: relative;
-    width: 25%;
-    font-family: Futura-medium;
-    padding: 20px;  
-    animation-duration: 2.5s;
-  animation-name: slide-in;
-  /* animation-iteration-count: infinite; */
+.admin-dashboard {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  text-align: center;
 }
 
-.btnCont{
-    display: grid;
+.admin-dashboard-title {
+  font-family: 'Futura-bold', sans-serif;
+  font-size: 2.4rem;
+  color: #003366;
+  margin-bottom: 0.5rem;
 }
 
-.heading{
-    display: flex;
-    margin-left: 42%;
+.admin-dashboard-subtitle {
+  font-family: 'Futura-medium', sans-serif;
+  color: #555;
+  font-size: 1.1rem;
+  margin-bottom: 3rem;
 }
 
-/* @media (prefers-reduced-motion: no-preference) {
-  .heading{
-    animation: grow-and-shrink;
-  }
-}  */
+/* Dashboard card grid */
+.admin-card-grid {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
 
-@keyframes grow-and-shrink {
-    0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.5);
-    }
-    100% {
-      transform: scale(1);
-    }
-  } 
+.admin-card {
+  background: white;
+  border-radius: 14px;
+  padding: 2.5rem 2rem;
+  width: 260px;
+  box-shadow: 0 4px 16px rgba(0, 51, 102, 0.12);
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none !important;
+  color: #003366 !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: block;
+}
 
-  @keyframes slide-in {
-    from {
-      transform: translateX(-100%);
-    }
-    to {
-      transform: translateX(0%);
-    }
-  }
+.admin-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 28px rgba(0, 51, 102, 0.2);
+  color: #003366 !important;
+}
+
+.admin-card-icon {
+  font-size: 3.5rem;
+  color: #5BD7FE;
+  margin-bottom: 1rem;
+}
+
+.admin-card h2 {
+  font-family: 'Futura-bold', sans-serif;
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.admin-card p {
+  font-family: 'Futura-medium', sans-serif;
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0;
+}

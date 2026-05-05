@@ -1,64 +1,76 @@
-.ticket-super-container{
-    font-family: Futura-bold;
-    /* align-items: center;
-    text-align: center; */
+/* ===== Ticket / Booking Page ===== */
+
+.ticket-super-container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+  font-family: 'Futura-medium', sans-serif;
 }
 
-.ticket-header{
-    margin-left: 45%;
+.ticket-header {
+  font-family: 'Futura-bold', sans-serif;
+  font-size: 2rem;
+  color: #003366;
+  text-align: center;
+  margin-bottom: 1.5rem;
 }
 
-.confirm-ticket{
-    border: none;
-    background-color: aqua;
-    padding: 10px;
-    border-radius: 20px; 
-    cursor: pointer;
-    color: black;
-    margin-bottom: 3rem;
-    /* margin-top: 2rem; */
-    margin-left: 38%; 
-    /* margin-right: 6   rem;  */
-    box-shadow: 5px 5px 5px gray;
-    font-size: 18px;
-    position: relative;
-    width: 70%;
-    font-family: Futura-medium;
-    }
-    
-    .confirm-ticket:hover{
-    background-color: transparent;
-    color:#003366;
-    border-color: #003366;
-    border-style: solid;
-    }
-    
-    .confirm-ticket:active{
-    background-color: aqua;
-    color: black ;
-    border: none;
-    transform: scale(0.98);
-    /* Scaling button to 0.98 to its original size */
-    box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
-    /* Lowering the shadow */
-    }
-    
+.ticket-data-container {
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(0, 51, 102, 0.1);
+  padding: 2rem;
+}
 
-    .ticket-data-container{
-        margin-left: 10px;
-    }
+.ticket-pic {
+  width: 100%;
+  max-height: 380px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 1.25rem;
+}
 
+.ticket-info {
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 1rem;
+  background: #fafafa;
+}
 
+.ticket-info input {
+  border: none;
+  background: transparent;
+  font-family: 'Futura-medium', sans-serif;
+  font-size: 15px;
+  padding: 4px 8px;
+  width: 100%;
+  outline: none;
+  box-shadow: none;
+  margin: 0;
+}
 
-    .ticket-info{
-        text-align: center;
-        border: "5px solid black";
-    }
+.user-info {
+  margin-top: 1.5rem;
+}
 
-    .user-info{
-        margin-left: 100px
-    }
+.confirm-ticket {
+  border: none;
+  background-color: #003366;
+  color: white;
+  font-family: 'Futura-bold', sans-serif;
+  font-size: 15px;
+  padding: 10px 24px;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0, 51, 102, 0.25);
+  transition: background-color 0.15s ease;
+  white-space: nowrap;
+}
 
-.ticket-pic{
-    width: 70%;
+.confirm-ticket:hover {
+  background-color: #0055a5;
+}
+
+.confirm-ticket:active {
+  transform: scale(0.97);
 }

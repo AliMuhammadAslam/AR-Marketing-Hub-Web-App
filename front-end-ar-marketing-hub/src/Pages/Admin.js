@@ -1,62 +1,65 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, Redirect } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { Link } from "react-router-dom";
 import { Nav } from 'react-bootstrap';
 import logo from '../Images/AR-logo.png';
-import './Admin.css'
+import './Admin.css';
+import '../components/NavigationBar.css';
 import { adminLogout } from "../actions/userAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
+import { MdEventNote, MdShoppingCart, MdLogout } from "react-icons/md";
 
 export default function Admin() {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const adminLogin = useSelector((state) => state.adminLogin);
-    const { adminInfo } = adminLogin;
+  const { adminInfo } = adminLogin;
 
   useEffect(() => {
     if (!adminInfo) {
-       navigate('/');
-    // props.onFormSwitch('login');
+      navigate('/');
     }
-}, [navigate, adminInfo]);
+  }, [navigate, adminInfo]);
 
   const logoutHandler = () => {
     dispatch(adminLogout());
     navigate('/');
   };
+
   return (
-    <div>
-      <nav className="navbar navbar-default">
-
-        <div className="container-fluid">
-
-          <div className="navbar-header">
-            <div className="navbar-brand"><Nav.Link as={Link} to={"/admin"}><img src={logo} className="App-icon" alt="logo" /></Nav.Link></div>
-          </div>
-
-          <ul className="nav navbar-nav">
-          <button onClick ={() => { logoutHandler() }} style={{backgroundColor: "#0091E6"}}>Logout</button>
-            {/* <Nav.Link as={Link} to={"/admin/events"}><button className="event">Events</button></Nav.Link>
-            <Nav.Link as={Link} to={"/admin/products"}><button className="prod">Products</button></Nav.Link> */}
-            {/* <li><a href="#">Products</a></li>
-                      <li><a href='#'>Events</a></li> */}
-            {/* <li><a> <Nav.Link as={Link} to={"/signin"}>Sign In</Nav.Link></a></li>
-                      <li><a> <Nav.Link as={Link} to={"/profile"}>Profile</Nav.Link></a></li>  */}
-
-
-
-
-
-          </ul>
-          
+    <div className="admin-page">
+      {/* Admin Navbar */}
+      <div className="admin-navbar">
+        <Nav.Link as={Link} to="/admin">
+          <img src={logo} className="admin-navbar-logo" alt="AR Marketing Hub" />
+        </Nav.Link>
+        <div className="admin-navbar-actions">
+          <button className="admin-nav-btn danger" onClick={logoutHandler}>
+            <MdLogout style={{ marginRight: 4 }} /> Logout
+          </button>
         </div>
-      </nav>
-      <div className='heading' style={{fontFamily:'Futura-bold', fontSize:'50px'}}>Admin Portal</div>
-      <div className='btnCont'>
-      <Nav.Link as={Link} to={"/admin/events"}><button className="event">Events</button></Nav.Link>
-            <Nav.Link as={Link} to={"/admin/products"}><button className="prod">Products</button></Nav.Link>
-            </div>
+      </div>
+
+      {/* Dashboard content */}
+      <div className="admin-dashboard">
+        <h1 className="admin-dashboard-title">Admin Portal</h1>
+        <p className="admin-dashboard-subtitle">Manage your products and events below.</p>
+
+        <div className="admin-card-grid">
+          <Nav.Link as={Link} to="/admin/products" className="admin-card">
+            <MdShoppingCart className="admin-card-icon" />
+            <h2>Products</h2>
+            <p>Add, edit and remove products from the marketplace.</p>
+          </Nav.Link>
+
+          <Nav.Link as={Link} to="/admin/events" className="admin-card">
+            <MdEventNote className="admin-card-icon" />
+            <h2>Events</h2>
+            <p>Manage events, ticket prices, and descriptions.</p>
+          </Nav.Link>
+        </div>
+      </div>
     </div>
-  )
+  );
 }

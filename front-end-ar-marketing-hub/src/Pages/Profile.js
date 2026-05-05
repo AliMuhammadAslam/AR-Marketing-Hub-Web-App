@@ -2,177 +2,101 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import './Profile.css';
 import proPic from '../Images/profpic.png';
-import { Row, Col, Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUser } from "../actions/userAction";
+import { updateUser, userLogout } from "../actions/userAction";
 import { confirmAlert } from "react-confirm-alert";
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import { userLogout } from "../actions/userAction";
-
-    
 
 function Profile() {
     const userLogin = useSelector((state) => state.userLogin);
     const { userInfo } = userLogin;
-    let navigate = useNavigate(); 
+
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const [name, setName] = useState(userInfo?.name || '');
     const [contact, setContact] = useState(userInfo?.contact || '');
     const [address, setAddress] = useState(userInfo?.address || '');
 
-    
     useEffect(() => {
         if (!userInfo) {
-           navigate('/');
-        // props.onFormSwitch('login');
+            navigate('/');
         }
     }, [navigate, userInfo]);
+
     const logoutHandler = () => {
         dispatch(userLogout());
-
         navigate('/');
     };
 
-    const refreshPage = () => {
-        window.location.reload();
-        //navigate('/admin/products');
-    }
-
-    let updateInfo = (e) => {
-        
-        try {
-            
-        
-            e.preventDefault();
-            console.log('Submitted values: ' + userInfo.id, name, contact, address);
-            dispatch(updateUser(userInfo.id, name, contact, address));
-            // setDesc('');
-            //          setID('');
-            //          setImage('');
-            //          setLink('');
-            //          setName('');
-            
-            confirmAlert({
-                            title: 'User Updated',
-                            message: 'User Info has been updated!',
-                            buttons: [
-                                {
-                                    label: 'Ok',
-                                    onClick: () => { logoutHandler(); }
-                                },
-                            ]
-                        });
-                
-                      
-            
-                //dispatch(addProd(id, description, name, link, image));
-                
-        } catch (error) {
-            console.log(error);
-        }}
+    const updateInfo = (e) => {
+        e.preventDefault();
+        dispatch(updateUser(userInfo.id, name, contact, address));
+        confirmAlert({
+            title: 'Profile Updated',
+            message: 'Your information has been updated.',
+            buttons: [
+                {
+                    label: 'OK',
+                    onClick: () => logoutHandler()
+                },
+            ]
+        });
+    };
 
     return (
-        // <div>THIS IS About</div>
+        <div className="profile-page">
+            <div className="profile-card">
+                <h1 className="profile-page-title">My Profile</h1>
 
-        <div>
+                <div className="profile-layout">
+                    <div className="profile-avatar-col">
+                        <img src={proPic} className="profile-pic" alt="Profile" />
+                    </div>
 
-            <Row className="profileContainer">
-                <div className="header" style={{marginTop: "-2rem", marginBottom: "2rem"}}><h1>Profile</h1></div>
-                <Col
-                    style={{
-                        display: "grid",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        marginLeft:"28rem"
-                    }}
-                >
-                    {/* <img src={pic} alt={name} className="profilePic" /> */}
-                    <a><img src={proPic} className="profile-pic" alt="proPic" /></a><br></br>
-
-                    {/* <a><Button type="submit" varient="primary">
-                            Change Profile Picture
-                        </Button></a> */}
-                </Col>  
-                <Col md={6}>
-                    {/* <Form onSubmit={submitHandler}>
-                            {loading && <Loading />}
-                            {success && (
-                                <ErrorMessage variant="success">
-                                    Updated Successfully
-                                </ErrorMessage>
-                            )} */}
-                    <Form>
-                        {/* {error && <ErrorMessage variant="danger">{error}</ErrorMessage>} */}
-                        <Form.Group controlId="name">
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control
+                    <div className="profile-form-col">
+                        <form onSubmit={updateInfo}>
+                            <label className="profile-field-label">Name</label>
+                            <input
+                                className="profile-field-input"
                                 type="text"
-                                // placeholder={`${userInfo.name}`}
-                                value={name}//{name}
+                                value={name}
                                 onChange={(e) => setName(e.target.value)}
-                                style={{ width: '50%', marginBottom: '10px' }}
-                            // onChange={(e) => setName(e.target.value)}
-                            ></Form.Control>
-                        </Form.Group>
-                        <Form.Group controlId="email">
-                            <Form.Label>Email Address</Form.Label>
-                            <Form.Control
+                            />
+
+                            <label className="profile-field-label">Email Address</label>
+                            <input
+                                className="profile-field-input"
                                 type="email"
-                                placeholder="Enter Email"
-                                defaultValue={`${userInfo?.email}`}
-                                disabled={true}
-                                style={{ width: '50%', marginBottom: '10px' }}
-                            //{email}
-                            // onChange={(e) => setEmail(e.target.value)}
-                            ></Form.Control>
-                        </Form.Group>
-                        <Form.Group controlId="contactNumber">
-                            <Form.Label>Contact Number</Form.Label>
-                            <Form.Control
+                                defaultValue={userInfo?.email}
+                                disabled
+                            />
+
+                            <label className="profile-field-label">Contact Number</label>
+                            <input
+                                className="profile-field-input"
                                 type="text"
-                                placeholder="Enter Contact N.o"
+                                placeholder="Enter contact number"
                                 value={contact}
                                 onChange={(e) => setContact(e.target.value)}
-                                style={{ width: '50%', marginBottom: '10px' }}
-                            // value={password}
-                            // onChange={(e) => setPassword(e.target.value)}
-                            ></Form.Control>
-                        </Form.Group>
-                        <Form.Group controlId="adress">
-                            <Form.Label>Address</Form.Label>
-                            <Form.Control
+                            />
+
+                            <label className="profile-field-label">Address</label>
+                            <input
+                                className="profile-field-input"
                                 type="text"
-                                placeholder="Enter Address"
+                                placeholder="Enter address"
                                 value={address}
                                 onChange={(e) => setAddress(e.target.value)}
-                                style={{ width: '50%', marginBottom: '15px' }}
-
-                            // value={confirmPassword}
-                            // onChange={(e) => setConfirmPassword(e.target.value)}
-                            ></Form.Control>
-                        </Form.Group>{" "}
-                        {/* {picMessage && (
-                                <ErrorMessage variant="danger">{picMessage}</ErrorMessage>
-                            // )} */}
-                        {/* <Form.Group controlId="proPic">
-                            <Form.Label>Change Profile Picture</Form.Label>
-                            <Form.File
-                                // onChange={(e) => postDetails(e.target.files[0])}
-                                id="custom-file"
-                                type="image/png"
-                                label="Upload Profile Picture"
-                                custom
                             />
-                        </Form.Group> */}
-                        <Button type="submit" varient="primary" onClick={updateInfo} style={{ marginLeft: "8.5rem" }}>Update</Button>
-                    </Form>
-                </Col>
 
-            </Row>
+                            <button className="profile-update-btn" type="submit">Update Profile</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-    )
-
+    );
 }
 
 export default Profile;

@@ -1,41 +1,65 @@
-.marketing{
-    width: 700px;
-    height: 350px;
-    
+/* ===== About Page ===== */
+
+.about-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
 }
 
-
-.about-text{
-    text-align:center;
-    justify-content: center;
-    align-items: center;
-    
-    
+.about-title-section {
+  text-align: center;
+  margin-bottom: 2.5rem;
 }
 
-.Container1{
-    display: flex;
-    justify-content: center;
-    border-style: double;
-    width: 90%;
-    border-color: blue;
-    align-items: center; 
-    justify-content: center;
-    margin-left: 5%;
-}
-.Container2{
-    display: flex;
-    justify-content: center;
-    border-style: double;
-    width: 90%;
-    border-color: blue;
-    align-items: center; 
-    justify-content: center;
-    margin-left: 5%;
+.about-title {
+  font-family: 'Futura-bold', sans-serif;
+  font-size: 2.2rem;
+  color: #003366;
 }
 
-.header{
-    margin-right: 50%;
-    
+/* Two-column sections */
+.about-section {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 51, 102, 0.08);
+  padding: 2rem;
+  flex-wrap: wrap;
 }
 
+.about-section-right {
+  flex-direction: row-reverse;
+}
+
+.about-img {
+  width: 100%;
+  max-width: 420px;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.about-text {
+  font-family: 'Futura-medium', sans-serif;
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.8;
+  flex: 1;
+  min-width: 200px;
+}
+
+@media (max-width: 640px) {
+  .about-section,
+  .about-section-right {
+    flex-direction: column;
+  }
+
+  .about-img {
+    max-width: 100%;
+    height: 200px;
+  }
+}
