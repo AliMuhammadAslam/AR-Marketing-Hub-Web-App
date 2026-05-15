@@ -8,7 +8,8 @@ const ProductCard = ({ item }) => {
           src={item.Image}
           className="card-img-top"
           alt={item.Product_Name}
-          style={{ height: '220px', objectFit: 'cover' }}
+          style={{ height: '220px', objectFit: 'contain', backgroundColor: '#f8f8f8', padding: '8px' }}
+          onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/400x220?text=No+Image'; }}
         />
         <div className="card-body d-flex flex-column">
           <h5 className="card-title" style={{ fontFamily: 'Futura-bold', color: '#003366' }}>

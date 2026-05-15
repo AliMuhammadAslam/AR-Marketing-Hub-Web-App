@@ -6,6 +6,121 @@
   padding: 2rem 1.5rem;
 }
 
+/* Search bar — mirrors Events page */
+.search-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.search-input-wrapper {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+}
+
+.search {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: 'Futura-medium', sans-serif;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  outline: none;
+  box-sizing: border-box;
+}
+
+.search:focus {
+  border-color: #003366;
+  box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.12);
+}
+
+.search {
+  padding-right: 44px;
+}
+
+.mic-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  color: #888;
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  border-radius: 50%;
+  transition: color 0.15s ease;
+}
+
+.mic-btn:hover {
+  color: #003366;
+}
+
+.mic-btn.listening {
+  color: #e53935;
+  animation: mic-pulse 1s ease-in-out infinite;
+}
+
+@keyframes mic-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+.search-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: none;
+  background-color: #003366;
+  color: white;
+  font-family: 'Futura-bold', sans-serif;
+  font-size: 15px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.15s ease;
+  height: 42px;
+}
+
+.search-btn:hover {
+  background-color: #0055a5;
+}
+
+.filter-select {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-family: 'Futura-medium', sans-serif;
+  font-size: 14px;
+  background: white;
+  cursor: pointer;
+  height: 42px;
+}
+
+.reset-btn {
+  border: 1px solid #ccc;
+  background: white;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-family: 'Futura-medium', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.15s ease;
+  height: 42px;
+}
+
+.reset-btn:hover {
+  background-color: #f0f0f0;
+}
+
 /* Shared page header (used by Products and Events) */
 .header {
   font-family: 'Futura-bold', sans-serif;

@@ -1,34 +1,34 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import axios from '../api/axios';
 
 const ActionProvider = ({ createChatBotMessage, setState, children }) => {
-  const handleHello = () => {
-    const botMessage = createChatBotMessage('Hello. Nice to meet you.');
+  const historyRef = useRef([]);
 
-    setState((prev) => ({
-      ...prev,
-      messages: [...prev.messages, botMessage],
-    }));
-  };
+  const handleAIMessage = async (message) => {
+    const history = historyRef.current;
 
-  const handleHelp = () => {
-    const botMessage = createChatBotMessage('Sure. How can I help you?');
+    try {
+      const { data } = await axios.post('/auth/chat', { message, history });
+      const botMessage = createChatBotMessage(data.reply);
 
-    setState((prev) => ({
-      ...prev,
-      messages: [...prev.messages, botMessage],
-    }));
+      historyRef.current = [
+        ...history,
+        { role: 'user', content: message },
+        { role: 'assistant', content: data.reply }
+      ].slice(-10);
+
+      setState(prev => ({ ...prev, messages: [...prev.messages, botMessage] }));
+    } catch {
+      const botMessage = createChatBotMessage("Sorry, I'm having trouble connecting right now. Please try again.");
+      setState(prev => ({ ...prev, messages: [...prev.messages, botMessage] }));
+    }
   };
 
   return (
     <div>
-      {React.Children.map(children, (child) => {
-        return React.cloneElement(child, {
-          actions: {
-            handleHello,
-            handleHelp
-          },
-        });
-      })}
+      {React.Children.map(children, child =>
+        React.cloneElement(child, { actions: { handleAIMessage } })
+      )}
     </div>
   );
 };

@@ -1,7 +1,5 @@
 const JWT = require('jsonwebtoken')
 const createError = require('http-errors')
-const { token } = require('morgan')
-const { reject } = require('bcrypt/promises')
 
 module.exports = {
     signAccessToken: (userId) => {
@@ -13,12 +11,8 @@ module.exports = {
                 issuer: 'armarketinghub.com',
                 audience: userId
             }
-            JWT.sign(payload, secret, options, (err, token ) => {
-                if (err) {
-                    console.log(err.message)
-                    //return reject(err)
-                    return(createError.InternalServerError())
-                }
+            JWT.sign(payload, secret, options, (err, token) => {
+                if (err) return reject(createError.InternalServerError())
                 resolve(token)
             })
         })
@@ -53,12 +47,8 @@ module.exports = {
                 issuer: 'armarketinghub.com',
                 audience: userId
             }
-            JWT.sign(payload, secret, options, (err, token ) => {
-                if (err) {
-                    console.log(err.message)
-                    //return reject(err)
-                    return(createError.InternalServerError())
-                }
+            JWT.sign(payload, secret, options, (err, token) => {
+                if (err) return reject(createError.InternalServerError())
                 resolve(token)
             })
         })

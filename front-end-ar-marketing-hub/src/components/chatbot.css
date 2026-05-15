@@ -82,8 +82,8 @@
     color: #fff;
     font-weight: medium;
     position: relative;
-    width: 184.5px;
-    margin-left: auto;
+    max-width: 80%;
+    margin-left: 0;
     text-align: left;
   }
   
@@ -137,7 +137,7 @@
   
   .react-chatbot-kit-chat-container {
     position: relative;
-    width: 275px;
+    width: 100%;
   }
   
   .react-chatbot-kit-chat-inner-container {
@@ -174,10 +174,9 @@
   }
   
   .react-chatbot-kit-chat-input {
-    width: 600px;
-    padding: 10px;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    flex: 1;
+    min-width: 0;
+    padding: 10px 15px;
     border: none;
     font-size: 0.85rem;
     border-top: 1px solid #d8d8d8;

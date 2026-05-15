@@ -12,6 +12,7 @@ const authRoutes = require('./routes/auth')
 const productRoutes = require('./routes/products')
 const eventRoutes = require('./routes/events')
 const contentRoutes = require('./routes/content')
+const chatRoutes = require('./routes/chat')
 
 const app = express()
 app.use(morgan('dev'))
@@ -30,6 +31,7 @@ app.use('/auth', authRoutes)
 app.use('/auth', productRoutes)
 app.use('/auth', eventRoutes)
 app.use('/auth', contentRoutes)
+app.use('/auth', chatRoutes)
 
 app.use(async (req, res, next) => {
     next(createError.NotFound())

@@ -1,4 +1,3 @@
-const { result } = require('@hapi/joi/lib/base');
 const Event = require('../models/Event');
 const ticket = require('../models/Ticket');
 const PER_PAGE = 16;
@@ -11,8 +10,7 @@ exports.getEvents = async(req, res, next) => {
     let searchObj = {};
  
     // constructing search object
-    if(filter != 'all' && value != 'all') {
-       // fetch books by search value and filter
+    if(filter && filter !== 'all' && value && value !== 'all') {
        searchObj[filter] = value;
     }
 

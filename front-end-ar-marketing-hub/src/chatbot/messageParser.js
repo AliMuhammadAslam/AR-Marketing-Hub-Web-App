@@ -2,23 +2,14 @@ import React from 'react';
 
 const MessageParser = ({ children, actions }) => {
   const parse = (message) => {
-    if (message.includes('hello')) {
-      actions.handleHello();
-    }
-    if (message.includes('help')) {
-      actions.handleHelp();
-    }
-
+    actions.handleAIMessage(message);
   };
 
   return (
     <div>
-      {React.Children.map(children, (child) => {
-        return React.cloneElement(child, {
-          parse: parse,
-          actions,
-        });
-      })}
+      {React.Children.map(children, child =>
+        React.cloneElement(child, { parse, actions })
+      )}
     </div>
   );
 };

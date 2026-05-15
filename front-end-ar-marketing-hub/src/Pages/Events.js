@@ -8,9 +8,8 @@ import Loading from "../components/Loading";
 import ErrorMessage from "../components/ErrorMessage";
 import { useNavigate } from 'react-router-dom';
 import axios from "../api/axios";
-import { MdSearch } from "react-icons/md";
+import { MdSearch, MdMic, MdMicOff } from "react-icons/md";
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-import { MdMic } from "react-icons/md";
 
 
 function Events() {
@@ -28,10 +27,33 @@ function Events() {
   const [errMsg, setErrMsg] = useState("");
   const [selectedOption, setSelectedOption] = useState('');
 
+  const {
+    transcript,
+    listening,
+    resetTranscript,
+    browserSupportsSpeechRecognition
+  } = useSpeechRecognition();
+
+  // Sync voice transcript into the search input
+  useEffect(() => {
+    if (transcript) setQuery(transcript);
+  }, [transcript]);
+
+  useEffect(() => {
+    dispatch(listEvents());
+  }, [dispatch, navigate, userInfo]);
+
+  const handleMicClick = () => {
+    if (listening) {
+      SpeechRecognition.stopListening();
+    } else {
+      resetTranscript();
+      SpeechRecognition.startListening();
+    }
+  };
+
   const handleSelectChange = (e) => {
-    const value = e.target.value;
-    setSelectedOption(value);
-    // Reset search data so sorted list shows in the main view
+    setSelectedOption(e.target.value);
     setData([]);
     setQuery("");
     setErrMsg("");
@@ -40,25 +62,9 @@ function Events() {
   const getSortedEvents = () => {
     if (!events) return [];
     const copy = [...events];
-    if (selectedOption === 'option3') {
-      return copy.sort((a, b) => a.Event_ID - b.Event_ID);
-    }
-    if (selectedOption === 'option1') {
-      return copy.sort((a, b) => b.Event_ID - a.Event_ID);
-    }
+    if (selectedOption === 'option1') return copy.sort((a, b) => b.Event_ID - a.Event_ID);
+    if (selectedOption === 'option3') return copy.sort((a, b) => a.Event_ID - b.Event_ID);
     return copy;
-  };
-
-  useEffect(() => {
-    dispatch(listEvents());
-  }, [dispatch, navigate, userInfo]);
-
-  const setSearchQuery = (value) => {
-    if (value.length === 0) {
-      setData([]);
-      setErrMsg("");
-    }
-    setQuery(value);
   };
 
   const resetQuery = () => {
@@ -67,29 +73,28 @@ function Events() {
     setErrMsg("");
     setSelectedOption("");
     resetTranscript();
+    SpeechRecognition.stopListening();
   };
 
   const fetchData = async () => {
     if (!query.trim()) return;
+    SpeechRecognition.stopListening();
     try {
       const res = await axios.post(`/auth/find_event/${query}`);
       setData(res.data);
       if (!res.data?.events?.length) {
-        setErrMsg("Event Not Found!");
+        setErrMsg("No events found.");
       } else {
         setErrMsg("");
       }
     } catch (err) {
-      setErrMsg("Event Not Found!");
+      setErrMsg("Event not found.");
     }
   };
 
-  const {
-    transcript,
-    listening,
-    resetTranscript,
-    browserSupportsSpeechRecognition
-  } = useSpeechRecognition();
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') fetchData();
+  };
 
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser doesn't support speech recognition.</span>;
@@ -100,43 +105,40 @@ function Events() {
 
   return (
     <div className="super-event-cont">
-      <div className="searchInput">
-        <input
-          className="search"
-          placeholder="Search..."
-          value={query}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        <button className="search-btn" onClick={fetchData}>
-          <MdSearch style={{ fontSize: '25px' }} />Search
-        </button>
-      </div>
 
-      <div className="reset-query" style={{ marginLeft: "21rem", marginBottom: "20px" }}>
-        <button
-          className="search-box"
-          style={{ width: "400px", marginRight: "15px", height: "3rem", boxShadow: "5px 5px 5px gray", borderRadius: "10px" }}
-          onClick={() => { setSearchQuery(transcript); fetchData(); }}
-        >
-          {listening ? 'Listening: ' + transcript : transcript || 'Click mic to search by voice'}
+      {/* Single unified search bar */}
+      <div className="search-bar-row">
+        <div className="search-input-wrapper">
+          <input
+            className="search"
+            placeholder="Search events..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={handleKeyDown}
+          />
+          <button
+            className={`mic-btn ${listening ? 'listening' : ''}`}
+            onClick={handleMicClick}
+            title={listening ? 'Stop listening' : 'Search by voice'}
+            type="button"
+          >
+            {listening ? <MdMicOff style={{ fontSize: '20px' }} /> : <MdMic style={{ fontSize: '20px' }} />}
+          </button>
+        </div>
+
+        <button className="search-btn" onClick={fetchData} type="button">
+          <MdSearch style={{ fontSize: '18px' }} /> Search
         </button>
-        <button className="speech-btn" onClick={() => SpeechRecognition.startListening()}>
-          <MdMic style={{ fontSize: '25px' }} />
-        </button>
-        <button className="reset-btn" onClick={resetQuery}>Reset</button>
+
+        <select className="filter-select" value={selectedOption} onChange={handleSelectChange}>
+          <option value="">Filter By</option>
+          <option value="option1">Newest First</option>
+          <option value="option3">Oldest First</option>
+        </select>
       </div>
 
       {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
       {loading && <Loading />}
-
-      <div className="drop-style" style={{ position: "absolute", right: "6.5rem", top: "10rem" }}>
-        <select id="dropdown" value={selectedOption} onChange={handleSelectChange}>
-          <option value="" style={{ fontStyle: "italic", fontWeight: "bold" }}>----Filter By----</option>
-          <option value="option1">Newest First</option>
-          <option value="option2">Default</option>
-          <option value="option3">Oldest First</option>
-        </select>
-      </div>
 
       <div className="header">
         <h1>{showingSearchResults ? 'Search Results' : 'Events'}</h1>
@@ -170,6 +172,5 @@ function Events() {
     </div>
   );
 }
-
 
 export default Events;
